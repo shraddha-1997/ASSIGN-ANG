@@ -1,0 +1,265 @@
+<!-- gotta add validations to alll the places data is being entered and  show pop ups and ui enhancement  -->
+
+
+
+<div class="popup" *ngIf="showSuccessPopup">
+  Saved Successfully!
+</div>
+
+
+
+
+<div class="deletepopup" *ngIf="showDeletedPopup">
+  Deleted!
+</div>
+
+
+<!-- Delete Confirmation Popup -->
+<div *ngIf="isDeletePopupVisible" class="delete-popup-overlay">
+  <div class="delete-popup">
+    <h3>Are you sure you want to delete this project?</h3>
+    <button class="delete" (click)="deleteProjectConfirmed()">Delete</button>
+    <button class="cancel" (click)="cancelDelete()">Cancel</button>
+  </div>
+</div>
+
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Projects</a>
+
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link" routerLink="/create">Create New Project</a>
+        <a class="nav-link active" aria-current="page" href="#">Projects</a>
+        <a class="nav-link" href="#" (click)="toTasks($event)">Tasks</a>
+        <a class="nav-link disabled" aria-disabled="true">Admin</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+
+
+<!-- <app-create (projectSaved)="loadProjects()"></app-create> -->
+<!-- THIS LOADS THE PROJECTS DISPLAY PAGE  ON THE FORMS PAGE -->
+
+<!-- 
+o	Title
+o	Description
+o	CreatedBy 
+o	Project Manager
+o	Start Date
+o	End Date
+o	Team Members
+o	Due Date -->
+
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">CreatedBy</th>
+      <th scope="col">Project Manager</th>
+      <th scope="col">Start Date</th>
+      <th scope="col">End Date</th>
+      <th scope="col">Team Members</th>
+      <th scope="col">Due Date</th>
+      <th scope="col">Actions</th>
+
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let project of projects; let i = index">
+      <td>{{ project.title }}</td>
+      <td>{{ project.description }}</td>
+      <td>{{ project.createdBy }}</td>
+      <td>{{ project.manager }}</td>
+      <td>{{ project.startDate }}</td>
+      <td>{{ project.endDate }}</td>
+      <td>{{ project.teamMembers }}</td>
+      <td>{{ project.dueDate }}</td>
+      <td>
+        <button (click)="editProject(i)" style="margin-right: 35px;" class="btn update">Update</button>
+        <button (click)="openTaskModal(i)" style="margin-right: 35px;" class="btn add">Add Task</button>
+
+        <!-- <button class="btn btn-danger delete" (click)="deleteProject(i)">Delete</button> -->
+        <button class="delete" (click)="confirmDelete(i)">Delete</button>
+
+      </td>
+
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+
+<!-- Modal UPDATE PROJECT-->
+<div *ngIf="isModalOpen" class="modal-overlay" (click)="cancelEdit()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h3>Update Project</h3>
+
+    <form #projectForm="ngForm" (submit)="updateProject()" novalidate>
+      <!-- Title -->
+      <label>Title:</label>
+      <input type="text" name="title" [(ngModel)]="editProjectData.title" #title="ngModel"
+        [ngModelOptions]="{standalone: true}" required minlength="3" />
+      <div *ngIf="title.invalid && title.touched" class="error-msg">
+        <div *ngIf="title.errors?.['required']">Title is required.</div>
+        <div *ngIf="title.errors?.['minlength']">Min 3 characters required.</div>
+      </div><br>
+
+      <!-- Description -->
+      <label>Description:</label>
+      <textarea name="description" [(ngModel)]="editProjectData.description" #description="ngModel"
+        [ngModelOptions]="{standalone: true}" required minlength="10"></textarea>
+      <div *ngIf="description.invalid && description.touched" class="error-msg">
+        <div *ngIf="description.errors?.['required']">Description is required.</div>
+        <div *ngIf="description.errors?.['minlength']">Min 10 characters required.</div>
+      </div><br>
+
+      <!-- Created By -->
+      <label>Created By:</label>
+      <input type="text" name="createdBy" [(ngModel)]="editProjectData.createdBy" #createdBy="ngModel"
+        [ngModelOptions]="{standalone: true}" required />
+      <div *ngIf="createdBy.invalid && createdBy.touched" class="error-msg">
+        Created By is required.
+      </div><br>
+
+      <!-- Project Manager -->
+      <label>Project Manager:</label>
+      <input type="text" name="manager" [(ngModel)]="editProjectData.manager" #manager="ngModel"
+        [ngModelOptions]="{standalone: true}" required />
+      <div *ngIf="manager.invalid && manager.touched" class="error-msg">
+        Project Manager is required.
+      </div><br>
+
+      <!-- Start Date -->
+      <label>Start Date:</label>
+      <input type="date" name="startDate" [(ngModel)]="editProjectData.startDate" #startDate="ngModel"
+        [ngModelOptions]="{standalone: true}" required />
+      <div *ngIf="startDate.invalid && startDate.touched" class="error-msg">
+        Start Date is required.
+      </div><br>
+
+      <!-- End Date -->
+      <label>End Date:</label>
+      <input type="date" name="endDate" [(ngModel)]="editProjectData.endDate" #endDate="ngModel"
+        [ngModelOptions]="{standalone: true}" required />
+      <div *ngIf="endDate.invalid && endDate.touched" class="error-msg">
+        End Date is required.
+      </div><br>
+
+      <!-- Team Members -->
+      <label>Team Members:</label>
+      <input type="text" name="teamMembers" [(ngModel)]="editProjectData.teamMembers" #teammembers="ngModel"
+        [ngModelOptions]="{standalone: true}" required />
+      <div *ngIf="teammembers.invalid && teammembers.touched" class="error-msg">
+        Team Members are required.
+      </div><br>
+
+      <!-- Due Date -->
+      <label>Due Date:</label>
+      <input type="date" name="dueDate" [(ngModel)]="editProjectData.dueDate" #dueDate="ngModel"
+        [ngModelOptions]="{standalone: true}" required />
+      <div *ngIf="dueDate.invalid && dueDate.touched" class="error-msg">
+        Due Date is required.
+      </div><br>
+
+      <button type="submit" [disabled]="projectForm.invalid">Save Changes</button>
+      <button type="button" (click)="selectedProjectIndex ? openTaskModal(selectedProjectIndex) : null">Create
+        Task</button>
+      <button type="button" (click)="cancelEdit()">Cancel</button>
+    </form>
+
+  </div>
+</div>
+
+
+
+
+
+
+<!-- Task Modal -->
+<div *ngIf="isTaskModalOpen" class="modal-overlay" (click)="cancelTask()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h3>Create Task</h3>
+
+
+
+
+    <form #taskForm="ngForm" (submit)="createTask()" novalidate>
+
+      <label>Title:</label>
+      <input type="text" name="title" pattern="^[A-Za-z ]+$" [(ngModel)]="newTaskData.title" #title="ngModel" required
+        minlength="3" />
+      <div *ngIf="title.invalid && title.touched" class="error-msg">
+        <div *ngIf="title.errors?.['required']">Title is required.</div>
+        <div *ngIf="title.errors?.['minlength']">At least 3 characters.</div>
+        <div *ngIf="title.errors?.['pattern']">Only letters and spaces allowed.</div>
+      </div><br />
+
+      <label>Assigned To:</label>
+      <input type="text" name="assignedTo" pattern="^[A-Za-z ]+$" [(ngModel)]="newTaskData.assignedTo"
+        #assignedTo="ngModel" required />
+      <div *ngIf="assignedTo.invalid && assignedTo.touched" class="error-msg">Assigned To is required.</div> <br />
+      <div *ngIf="title.errors?.['pattern']">Only letters and spaces allowed.</div>
+
+      <label>Status:</label>
+      <select name="status" [(ngModel)]="newTaskData.status" #status="ngModel" required>
+        <option value="" disabled selected>Select status</option>
+        <option value="Pending">Pending</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+      </select>
+      <div *ngIf="status.invalid && status.touched" class="error-msg">
+        Status is required.
+      </div><br />
+
+      <label>Assigned User:</label>
+      <input type="text" name="assignedUser" pattern="^[A-Za-z ]+$" [(ngModel)]="newTaskData.assignedUser"
+        #assignedUser="ngModel" required />
+      <div *ngIf="assignedUser.invalid && assignedUser.touched" class="error-msg">
+        Assigned User is required.
+      </div><br />
+      <div *ngIf="title.errors?.['pattern']">Only letters and spaces allowed.</div>
+
+
+      <label>Estimate (Hours):</label>
+      <input type="number" name="estimate" [(ngModel)]="newTaskData.estimate" #estimate="ngModel" required min="1" />
+      <div *ngIf="estimate.invalid && estimate.touched" class="error-msg">
+        <div *ngIf="estimate.errors?.['required']">Estimate is required.</div>
+        <div *ngIf="estimate.errors?.['min']">Minimum is 1 hour.</div>
+      </div><br />
+
+      <label>Time Spent (Hours):</label>
+      <input type="number" name="timeSpent" [(ngModel)]="newTaskData.timeSpent" #timeSpent="ngModel" required min="0" />
+      <div *ngIf="timeSpent.invalid && timeSpent.touched" class="error-msg">
+        <div *ngIf="timeSpent.errors?.['required']">Time spent is required.</div>
+        <div *ngIf="timeSpent.errors?.['min']">Can't be negative, friend.</div>
+      </div><br />
+
+      <button type="submit" [disabled]="taskForm.invalid">Create Task</button>
+      <button type="button" (click)="cancelTask()">Cancel</button>
+    </form>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

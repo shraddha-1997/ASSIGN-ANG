@@ -1,0 +1,95 @@
+
+
+.profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f5f5f5;
+}
+
+.profile-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 300px;
+}
+
+.profile-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.profile-settings {
+  margin-top: 15px;
+  color: #555;
+}
+
+.logout-btn {
+  background: #d9534f;
+  color: white;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.logout-btn:hover {
+  background: #c9302c;
+}
+
+
+.alert{
+ background-color:#cfe2ff;
+ padding-top: 1px;
+ padding-bottom: 1px;
+ width: 500px;
+ margin-top: 30px;
+ margin-left: 550px;
+ border-radius: 10%;
+}
+
+.welcome{
+  text-align: center;
+}
+
+.para{
+  text-align: center;
+
+}
+
+.create-btn{
+  background: #514fd9;
+  color: white;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+} 
+
+.hov{
+  cursor:pointer;
+}
+
+@media (min-width: 600px) and (max-width: 1024px) {
+
+  
+.alert{
+  background-color:#cfe2ff;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  width: 500px;
+  margin-top: 30px;
+  margin-left: 170px;
+  border-radius: 10%;
+ }
+  
+}

@@ -1,0 +1,127 @@
+/* CSS FOR NAVBAR */
+
+
+/* Navbar background and text */
+.navbar {
+  background-color: #000000; /* Light gray background */
+  padding: 10px 20px;
+  border-bottom: 2px solid #ddd; /* Subtle bottom border */
+}
+
+/* Brand Name Styling */
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white; /* Dark text */
+}
+
+/* Navbar Links */
+.navbar-nav .nav-link {
+  color: white; /* Slightly darker for contrast */
+  font-size: 1.1rem;
+  padding: 8px 15px;
+  transition: all 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #42f4fa; /* Bootstrap primary blue */
+  transform: scale(1.1);
+}
+
+/* Active link */
+.navbar-nav .nav-link.active {
+  font-weight: bold;
+  color: #c642fa;
+}
+
+/* Disabled link */
+.navbar-nav .nav-link.disabled {
+  color: #ccc !important;
+  pointer-events: none;
+}
+
+
+.navbar-toggler:focus {
+  outline: none;
+  box-shadow: none;
+}
+.navbar .container-fluid {
+  display: flex;
+  align-items: center; /* Ensures everything stays aligned */
+  justify-content: space-between; /* Spaces brand and links */
+}
+
+.navbar .d-flex {
+  gap: 20px; /* Add spacing between links */
+}
+
+
+
+
+
+form {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-top: 10px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  margin-top: 15px;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+th {
+  background-color: #007bff;
+  color: white;
+}
+
+
+
+
+.error-msg {
+  color: red;
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+}
+
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+  border: 1px solid red;
+}

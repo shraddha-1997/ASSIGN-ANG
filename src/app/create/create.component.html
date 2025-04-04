@@ -1,0 +1,82 @@
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Create New Project</a>
+   
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href="#">Create New Project</a>
+        <a class="nav-link" href="#" (click)="toProjectsList($event)">Projects</a>
+        <a class="nav-link" href="#" (click)="toTasks($event)">Tasks</a>
+
+        <a class="nav-link disabled" aria-disabled="true">Admin</a>
+      </div>
+    </div>
+  </div>
+</nav>  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<form #projectForm="ngForm" (ngSubmit)="saveProject($event)">
+
+  <label>Title:</label>
+  <input type="text" name="title" [(ngModel)]="project.title" required minlength="3" #title="ngModel" />
+  <div *ngIf="title.invalid && title.touched" class="error-msg">Title is required (min 3 characters).</div>
+
+  <label>Description:</label>
+  <textarea name="description" [(ngModel)]="project.description" required minlength="10" #desc="ngModel"></textarea>
+  <div *ngIf="desc.invalid && desc.touched" class="error-msg">Min 10 characters.</div>
+
+  <label>Created By:</label>
+  <input type="text" name="createdBy" [(ngModel)]="project.createdBy" required #createdBy="ngModel" />
+  <div *ngIf="createdBy.invalid && createdBy.touched" class="error-msg">Required field.</div>
+
+  <label>Project Manager:</label>
+  <input type="text" name="manager" [(ngModel)]="project.manager" required #manager="ngModel" />
+  <div *ngIf="manager.invalid && manager.touched" class="error-msg">Required field.</div>
+
+  <label>Start Date:</label>
+  <input type="date" name="startDate" [(ngModel)]="project.startDate" required #startDate="ngModel" />
+  <div *ngIf="startDate.invalid && startDate.touched" class="error-msg">Pick a date.</div>
+
+  <label>End Date:</label>
+  <input type="date" name="endDate" [(ngModel)]="project.endDate" required #endDate="ngModel" />
+  <div *ngIf="endDate.invalid && endDate.touched" class="error-msg">Pick a date.</div>
+
+  <label>Team Members (comma-separated):</label>
+  <input type="text" name="teamMembers" [(ngModel)]="project.teamMembers" required #teammembers="ngModel" pattern="^[a-zA-Z,\s]+$" #team="ngModel" />
+  <div *ngIf="team.invalid && team.touched" class="error-msg">Required field.</div>
+
+  <label>Due Date:</label>
+  <input type="date" name="dueDate" [(ngModel)]="project.dueDate" required #dueDate="ngModel" />
+  <div *ngIf="dueDate.invalid && dueDate.touched" class="error-msg">This one's required.</div>
+
+  <button type="submit" [disabled]="projectForm.invalid">Save Project</button>
+</form>

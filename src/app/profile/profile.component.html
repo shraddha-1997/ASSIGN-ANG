@@ -1,0 +1,24 @@
+
+<div class="alert alert-primary" role="alert">
+  <h1 class="welcome">Welcome! </h1>
+  <p class="para">Your task kingdom awaits! Ready to rule your projects like a boss?</p>
+ </div>
+ 
+ <div class="profile-container">
+   <div class="profile-card">
+     <!-- <img [src]="user.profilePicture" alt="Profile Picture" class="profile-img" /> -->
+     <img src="profile2.jpg" alt="Profile Picture" class="profile-img" />
+     <h2>{{ user.username }}</h2>
+     <p>{{ user.email }}</p>
+ 
+     <div class="profile-settings">
+       <h3 class="hov">Profile Settings</h3>
+       <p class="hov">Change Profile Settings</p>
+     </div>
+ 
+     <button (click)="createproject()" type="create-btn" class="create-btn">Create New Project</button>
+     <button (click)="logout()" class="logout-btn">LOGOUT</button> 
+     
+   </div>
+ </div>
+ 

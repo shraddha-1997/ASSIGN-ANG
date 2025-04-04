@@ -1,0 +1,392 @@
+/* Navbar background and text */
+.navbar {
+  background-color: #000000; /* Light gray background */
+  padding: 10px 20px;
+  border-bottom: 2px solid #ddd; /* Subtle bottom border */
+}
+
+/* Brand Name Styling */
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white; /* Dark text */
+}
+
+/* Navbar Links */
+.navbar-nav .nav-link {
+  color: white; /* Slightly darker for contrast */
+  font-size: 1.1rem;
+  padding: 8px 15px;
+  transition: all 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #42f4fa; /* Bootstrap primary blue */
+  transform: scale(1.1);
+}
+
+/* Active link */
+.navbar-nav .nav-link.active {
+  font-weight: bold;
+  color: #c642fa;
+}
+
+/* Disabled link */
+.navbar-nav .nav-link.disabled {
+  color: #ccc !important;
+  pointer-events: none;
+}
+
+
+.navbar-toggler:focus {
+  outline: none;
+  box-shadow: none;
+}
+.navbar .container-fluid {
+  display: flex;
+  align-items: center; /* Ensures everything stays aligned */
+  justify-content: space-between; /* Spaces brand and links */
+}
+
+.navbar .d-flex {
+  gap: 20px; /* Add spacing between links */
+}
+
+
+
+
+
+
+
+
+
+
+
+.status-pending {
+  background-color: rgb(233, 50, 50); 
+  color: #000;
+  font-weight: bold;
+  border-radius: 4px;
+  padding: 4px 8px;
+  text-align: center;
+}
+
+.status-in-progress {
+  background-color: #17a2b8; 
+  color: #fff;
+  font-weight: bold;
+  border-radius: 4px;
+  padding: 4px 8px;
+  text-align: center;
+}
+
+.status-completed {
+  background-color: #28a745; 
+  color: #fff;
+  font-weight: bold;
+  border-radius: 4px;
+  padding: 4px 8px;
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* TABLE CSS */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; 
+}
+
+/* Force consistent column width */
+.table th,
+.table td {
+  padding: 12px;
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap; 
+  border: 1px solid grey;
+}
+
+/* Fix misalignment of header rows */
+.table thead th {
+  background-color: #343a40;
+   /* #7c9dc0;  */
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 14px;
+}
+
+/* Ensure the container doesn't mess with alignment */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  display: block;
+}
+
+
+.table tbody tr:last-child {
+  border-bottom: none;
+}
+
+
+
+
+
+
+
+
+
+/* Button  */
+
+.edit{
+background-color: rgb(53, 174, 223);
+}
+
+
+.delete{
+background-color: #f44336;
+}
+
+
+
+
+
+
+
+
+
+
+.pro{
+  /* background-color: rgb(128, 187, 226); */
+  padding: 5px;
+  margin-top: 50px;
+  /* margin-right: 1350px; */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Centering overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 10px; /* Prevents content from touching edges */
+}
+
+/* Modal content */
+.modal-content {
+  background:#dde7ec;
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 800px;
+  max-height: 90vh; /* Prevents modal from going beyond screen */
+  overflow-y: auto; /* Adds scrolling if content exceeds max height */
+  overflow-x: hidden; /* Prevents horizontal scrolling */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box; /* Ensures padding doesn’t increase width */
+}
+
+/* Style the form */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto; /* Allow vertical scrolling if needed */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  background-color: white; /* Reset to white if unintended green */
+  padding: 15px;
+  border-radius: 5px;
+}
+
+/* Label Styling */
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Input and textarea styles */
+input, textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box; /* Ensures input doesn’t overflow */
+}
+
+/* Ensure textarea looks better */
+textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+/* Button Styling */
+button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+}
+
+button[type="button"] {
+  background-color: #f44336;
+  color: white;
+}
+
+/* Hover effects */
+button:hover {
+  opacity: 0.8;
+}
+
+
+
+
+
+
+
+
+.error-msg {
+  color: red;
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+}
+
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+
+
+
+
+
+.popup {
+  position: fixed;
+  top: 50%;
+  right: 50%;
+  background-color: #4BB543; /* green good vibes */
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  animation: fadeOut 7s ease-in-out forwards;
+}
+
+
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+
+
+.delete-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.delete-popup {
+  background: #fff;
+  padding: 20px 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  text-align: center;
+}
+
+
+
+.deletepopup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ffdddd;
+  color: #aa0000;
+  padding: 16px 24px;
+  border: 1px solid #aa0000;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  font-weight: bold;
+  z-index: 9999;
+}
+
+
+
+.cancel{
+  margin-left: 20px;
+  background-color: grey;
+  color: white;
+}
+
+
+
+.delete{
+  background-color: #f44336;
+  color: white;
+  }
+  
+  
+  
