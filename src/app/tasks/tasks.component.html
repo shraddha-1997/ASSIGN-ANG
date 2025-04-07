@@ -33,7 +33,7 @@
 
         <!-- <a class="nav-link " href="#" (click)="toProjects($event)">Projects</a> -->
         <a class="nav-link active"  aria-current="page" href="#" >Tasks</a>
-        <a class="nav-link disabled" aria-disabled="true">Admin</a>
+        <a class="nav-link" href="/login" >Log Out</a>
       </div>
     </div>
   </div>
@@ -44,7 +44,7 @@
 
 
 <div *ngFor="let projectKey of getTaskKeys()">
-  <h2 class="pro">Project : {{ projectKey }}</h2>
+  <h2 class="pro">Project : {{  projectKey }}</h2>
   <table class="table">
     <thead>
       <tr>
