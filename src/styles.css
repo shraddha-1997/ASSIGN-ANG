@@ -1,1 +1,133 @@
-/* You can add global styles to this file, and also import other style files */
+/* Light Mode (default) */
+body {
+  background-color: #fff;
+  color: #000;
+}
+
+.table {
+  background-color: #fff;
+  color: #000;
+}
+
+.navbar {
+  background-color: #f8f9fa;
+}
+
+button {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+  background-color: #121212;
+  color: black;
+}
+
+body.dark-mode .table {
+  background-color: #333;
+  color: #e0e0e0;
+}
+
+body.dark-mode button {
+  background-color: #facc15;
+  color: #fff;
+}
+
+body.dark-mode .modal-content {
+  background-color: #333;
+  color: #fff;
+}
+
+.dark-mode-toggle {
+  position: fixed;   /* Fixed positioning */
+  top: 10px;         /* 10px from the top */
+  left: 10px;        /* 10px from the left */
+  z-index: 1000;     /* Ensures it stays on top */
+  padding: 10px 20px;
+  background-color: #1a2238;
+  color: white;
+  border: solid 1px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.dark-mode-toggle:hover {
+  background-color: #444;
+}
+
+
+
+
+
+
+
+body.dark-mode .create-page input,
+body.dark-mode .create-page textarea {
+  background-color: #2c2c2c;
+  color: #f1f1f1;
+  border: 1px solid #555;
+}
+
+body.dark-mode .create-page label {
+  color: #f1f1f1;
+}
+
+body.dark-mode .create-page button {
+  background-color: #0056b3;
+}
+
+
+
+
+
+/* PAGINATION */
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.pagination-controls button {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: 1px solid;
+  background-color: var(--pagination-bg);
+  color: var(--pagination-text);
+  border-color: var(--pagination-border);
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+.pagination-controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-controls span {
+  color: var(--pagination-text);
+}
+
+/* DEFAULT VARIABLES */
+:root {
+  --pagination-bg: #f0f0f0;
+  --pagination-text: #000;
+  --pagination-border: #ccc;
+}
+
+/* DARK MODE VARIABLES */
+body.dark-mode {
+  --pagination-bg: #222;
+  --pagination-text: #fff;
+  --pagination-border: #555;
+}
+ 

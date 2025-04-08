@@ -52,8 +52,20 @@ export class ProjectComponent implements OnInit {
     this.loadProjects();
     
     console.log(" Projects after loading:", this.projects);
-
+    this.loadProjects(); // or however you load
+    this.filteredProjects = this.projects;
   }
+
+
+
+
+  viewTasks(projectTitle: string) {
+    this.router.navigate(['/singletask', projectTitle]);
+  }
+
+  
+
+  
 
   loadProjects() {
   console.log(" Reloading projects from localStorage...");
@@ -74,19 +86,18 @@ export class ProjectComponent implements OnInit {
 
 
 
-
-  
 deleteProject(index: number) {
   this.projects.splice(index, 1);
   localStorage.setItem('projects', JSON.stringify(this.projects)); 
-  console.log("🗑 Project deleted. Updated list:", this.projects);
+
+  // 🔥 Refresh filtered projects
+  this.searchProjects();
 
   this.showDeletedPopup = true;
   setTimeout(() => {
     this.showDeletedPopup = false;
   }, 2000);
 }
-
 
 
 confirmDelete(index: number) {
@@ -115,14 +126,15 @@ cancelDelete() {
     this.isModalOpen = true; 
   }
   
-  
   updateProject() {
     if (this.editingIndex !== null) {
       this.projects[this.editingIndex] = { ...this.editProjectData };
       localStorage.setItem('projects', JSON.stringify(this.projects));
       this.projects = [...this.projects];
   
-      // 🎉 Trigger the success popup here
+      // 🔥 Keep filtered list fresh
+      this.searchProjects();
+  
       this.showSuccessPopup = true;
       setTimeout(() => {
         this.showSuccessPopup = false;
@@ -199,41 +211,27 @@ cancelEdit() {
 
 
 
-
-
   createTask() {
     if (this.selectedProjectIndex !== null) {
-      console.log("📝 Adding task to project:", this.projects[this.selectedProjectIndex]);
-  
-      // Ensure tasks array exists
       if (!this.projects[this.selectedProjectIndex].tasks) {
         this.projects[this.selectedProjectIndex].tasks = [];
       }
   
       this.projects[this.selectedProjectIndex].tasks.push({ ...this.newTaskData });
-      
-      console.log(" Task added:", this.newTaskData);
-      console.log(" Updated project:", this.projects[this.selectedProjectIndex]);
-  
       localStorage.setItem('projects', JSON.stringify(this.projects));
   
-      // 🎉 Trigger popup here too
+      // Refresh view 🧼
+      this.searchProjects();
+  
       this.showSuccessPopup = true;
       setTimeout(() => {
         this.showSuccessPopup = false;
       }, 2000);
     }
   
-    this.cancelTask(); // Close modal
+    this.cancelTask();
   }
   
-
-
-
-
-
-
-
 
 
 
@@ -248,6 +246,81 @@ cancelEdit() {
 
 
 
+
+
+  // Add these variables in your component
+currentPage: number = 1;
+pageSize: number = 10;  // Adjust page size as needed
+
+
+
+// Pagination methods
+prevPage() {
+  if (this.currentPage > 1) {
+    this.currentPage--;
+  }
+}
+
+nextPage() {
+  if (this.currentPage < this.getTotalPages()) {
+    this.currentPage++;
+  }
+}
+
+getTotalPages() {
+  return Math.max(1, Math.ceil(this.projects.length / this.pageSize));
+}
+
+
+
+
+
+
+
+
+
+searchQuery: string = '';
+filteredProjects: any[] = [];
+
+searchProjects() {
+  const query = this.searchQuery.toLowerCase().trim();
+  this.filteredProjects = this.projects.filter(project =>
+    project.title.toLowerCase().includes(query) ||
+    project.description.toLowerCase().includes(query) ||
+    project.manager.toLowerCase().includes(query) ||
+    (project.createdBy && project.createdBy.toLowerCase().includes(query)) ||
+    (project.teamMember && project.teamMember.toLowerCase().includes(query))
+  );
+  this.currentPage = 1; // Reset to page 1 after search
+}
+
+get paginatedProjects() {
+  
+  const start = (this.currentPage - 1) * this.pageSize;
+  const end = start + this.pageSize;
+  return this.filteredProjects.slice(start, end);
+}
+
+
+
+
+sortDirection: 'asc' | 'desc' = 'asc';
+
+sortByTitle() {
+  this.filteredProjects.sort((a, b) => {
+    const titleA = a.title.toLowerCase();
+    const titleB = b.title.toLowerCase();
+
+    if (this.sortDirection === 'asc') {
+      return titleA.localeCompare(titleB);
+    } else {
+      return titleB.localeCompare(titleA);
+    }
+  });
+
+  // Toggle the direction
+  this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+}
 
 
 

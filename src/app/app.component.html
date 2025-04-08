@@ -1,2 +1,16 @@
 <!-- <app-login></app-login> -->
 <router-outlet></router-outlet>
+
+<head>
+ <!-- Add this to the <head> section of your index.html file -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+</head>
+
+
+
+  <!-- Toggle Button with Sun and Moon Icons -->
+  <button (click)="toggleDarkMode()" class="dark-mode-toggle">
+    <i class="fas" [ngClass]="isDarkMode ? 'fa-sun' : 'fa-moon'"></i> <!-- Sun for dark mode, Moon for light mode -->
+  </button>
+

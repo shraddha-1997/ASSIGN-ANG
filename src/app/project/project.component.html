@@ -2,6 +2,8 @@
 
 
 
+
+
 <div class="popup" *ngIf="showSuccessPopup">
   Saved Successfully!
 </div>
@@ -24,16 +26,47 @@
 </div>
 
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg ">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Projects</a>
+
+
+    <div class="projects-header-wrapper">
+    <a class="navbar-brand"  style="margin-left: 50px;" href="#">Projects</a>
+
+
+
+
+
+    <div class="search-container">
+      <input
+        type="text"
+        placeholder="Search projects..."
+        [(ngModel)]="searchQuery"
+        class="search-input"
+      />
+      <button (click)="searchProjects()" class="search-btn">Search</button>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-link" routerLink="/create">Create New Project</a>
         <a class="nav-link active" aria-current="page" href="#">Projects</a>
         <a class="nav-link" href="#" (click)="toTasks($event)">Tasks</a>
-        <a class="nav-link" href="/login" >Log Out</a>
+        <a class="nav-link" href="/login">Log Out</a>
 
       </div>
     </div>
@@ -60,7 +93,14 @@ o	Due Date -->
 <table class="table">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">Title</th>
+      <!-- <th scope="col">Title</th> -->
+      <th (click)="sortByTitle()" style="cursor: pointer;">
+        Title
+        <span *ngIf="sortDirection === 'asc'">▲</span>
+        <span *ngIf="sortDirection === 'desc'">▼</span>
+      </th>
+      
+
       <th scope="col">Description</th>
       <th scope="col">CreatedBy</th>
       <th scope="col">Project Manager</th>
@@ -69,12 +109,10 @@ o	Due Date -->
       <th scope="col">Team Members</th>
       <th scope="col">Due Date</th>
       <th scope="col">Actions</th>
-
-
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let project of projects; let i = index">
+    <tr *ngFor="let project of paginatedProjects; let i = index">
       <td>{{ project.title }}</td>
       <td>{{ project.description }}</td>
       <td>{{ project.createdBy }}</td>
@@ -84,20 +122,28 @@ o	Due Date -->
       <td>{{ project.teamMembers }}</td>
       <td>{{ project.dueDate }}</td>
       <td>
-        <button (click)="editProject(i)" style="margin-right: 35px;" class="btn update">Update</button>
-        <button (click)="openTaskModal(i)" style="margin-right: 35px;" class="btn add">Add Task</button>
-
-        <!-- <button class="btn btn-danger delete" (click)="deleteProject(i)">Delete</button> -->
-        <button class="delete" (click)="confirmDelete(i)">Delete</button>
-
+        <div class="btn-group">
+          <button (click)="editProject(i)" class="btn update">Update</button>
+          <button (click)="openTaskModal(i)" class="btn add">Add Task</button>
+          <button (click)="viewTasks(project.title)" class="btn view">View Tasks</button>
+          <button class="btn delete" (click)="confirmDelete(i)">Delete</button>
+        </div>
       </td>
+      
 
     </tr>
   </tbody>
 </table>
 
+<!-- Pagination Controls -->
+<div class="pagination-controls">
+  <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+  <span>Page {{ currentPage }} of {{ getTotalPages() }}</span>
+  <button (click)="nextPage()" [disabled]="currentPage === getTotalPages()">Next</button>
+</div>
 
 
+ 
 
 
 <!-- Modal UPDATE PROJECT-->
@@ -173,8 +219,6 @@ o	Due Date -->
       </div><br>
 
       <button type="submit" [disabled]="projectForm.invalid">Save Changes</button>
-      <button type="button" (click)="selectedProjectIndex ? openTaskModal(selectedProjectIndex) : null">Create
-        Task</button>
       <button type="button" (click)="cancelEdit()">Cancel</button>
     </form>
 
@@ -251,16 +295,3 @@ o	Due Date -->
 
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-

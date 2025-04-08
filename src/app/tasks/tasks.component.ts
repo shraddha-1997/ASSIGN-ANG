@@ -23,6 +23,11 @@ deleteTargetProjectKey: string | null = null;
 deleteTargetTaskIndex: number | null = null;
 
 
+
+
+
+
+
   ngOnInit() {
     this.loadTasks();
     
@@ -126,7 +131,7 @@ deleteTargetTaskIndex: number | null = null;
       // Refresh UI
       this.groupedTasks = { ...this.groupedTasks };
   
-      // 🔥 Show delete popup
+      //  Show delete popup
       this.showDeletePopup = true;
       setTimeout(() => {
         this.showDeletePopup = false;

@@ -84,5 +84,10 @@ toProjectsList(event: Event) {
   }
   
 
+  toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+  }
+  
+
 }
  

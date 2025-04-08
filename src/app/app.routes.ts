@@ -7,6 +7,10 @@ import { ProfileComponent } from './profile/profile.component';
 import { ProjectComponent } from './project/project.component';
 import { CreateComponent } from './create/create.component';
 import { TasksComponent } from './tasks/tasks.component';
+// import { SingleTaskComponent } from './singletask/singletask.component';
+// import { SingleTaskComponent } from './singletask/singletask.component';
+import { SingletaskComponent } from './singletask/singletask.component';
+
 
 // Declare the routes array and export it
 export const routes: Routes = [
@@ -16,4 +20,6 @@ export const routes: Routes = [
   { path: 'create', component: CreateComponent },
   { path: 'project', component:ProjectComponent },   //Project Component rout
   { path: 'tasks', component: TasksComponent},
+  // { path: 'singletask', component: SingleTaskComponent},
+  { path: 'singletask/:title', component: SingletaskComponent },
 ];

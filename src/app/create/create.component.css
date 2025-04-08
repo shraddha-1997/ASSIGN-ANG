@@ -125,3 +125,32 @@ input.ng-invalid.ng-touched,
 textarea.ng-invalid.ng-touched {
   border: 1px solid red;
 }
+
+
+
+
+
+
+
+
+
+
+body.dark-mode .create-page form {
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+}
+
+body.dark-mode .create-page input,
+body.dark-mode .create-page textarea {
+  background-color: #2c2c2c;
+  color: #f1f1f1;
+  border: 1px solid #555;
+}
+
+body.dark-mode .create-page label {
+  color: #f1f1f1;
+}
+
+body.dark-mode .create-page button {
+  background-color: #0056b3;
+}

@@ -1,0 +1,158 @@
+<!-- Delete Confirmation Popup -->
+<div *ngIf="showDeleteConfirm" class="delete-popup-overlay">
+  <div class="delete-popup">
+    <p>Are you sure you want to delete this task? TT</p>
+    <button class="btn delete" (click)="confirmDelete()">Delete</button>
+    <button class="cancel" (click)="cancelDelete()">Cancel</button>
+  </div>
+</div>
+
+<!-- Task Deleted Notification -->
+<div *ngIf="showDeletedPopup" class="deletepopup">
+  Task Deleted Successfully
+</div>
+
+
+
+
+<!-- Task Updated Notification -->
+<div *ngIf="showUpdatedPopup" class="update-popup">
+  Task Updated Successfully
+</div>
+
+
+
+
+
+<h1>Tasks for Project: {{ projectTitle }}</h1>
+
+
+
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th>Title</th>
+      <th>Assigned To</th>
+      <!-- <th>Status -->
+        <th class="position-relative">
+          STATUS
+          <button (click)="toggleStatusFilterDropdown()" class="filter-btn">
+            <img src="/filter.png" alt="Filter"  class="filter-icon">
+          </button>
+          
+          <div *ngIf="showStatusFilter" class="filter-dropdown">
+            <label *ngFor="let status of statusOptions" class="filter-option">
+              <input
+                type="radio"
+                name="statusFilter"
+                [value]="status"
+                [(ngModel)]="selectedStatusFilter"
+                (change)="applyStatusFilter(); toggleStatusFilterDropdown()"
+              />
+              {{ status }}
+            </label>
+            
+          </div>
+        </th>
+        
+
+      <!-- </th> -->
+
+      <th>Estimate</th>
+      <th>Time Spent</th>
+      <th>Actions</th>
+
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let task of filteredTasks; let i = index">
+      <td>{{ task.title }}</td>
+      <td>{{ task.assignedTo }}</td>
+      <td [ngClass]="getStatusClass(task.status)">
+        {{ task.status }}
+      </td>
+      <td>{{ task.estimate }}</td>
+      <td>{{ task.timeSpent }}</td>
+      <td>
+        <button class="btn edit" (click)="editTask(i)" style="margin-right: 15px;">Update</button>
+        <button class="btn delete" (click)="deleteTask(i)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="tasks.length === 0" class="alert alert-info mt-4">
+  No tasks found for this project 
+</div>
+
+
+
+
+
+
+
+<!-- Modal to Edit Task -->
+<div *ngIf="isEditModalOpen" class="modal-overlay" (click)="cancelEditTask()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h3>Update Task</h3>
+
+    <form #editTaskForm="ngForm" (submit)="updateTask()" novalidate>
+
+      <!-- Task Title -->
+      <label>Task Title:</label>
+      <input type="text" name="title" [(ngModel)]="editTaskData.title" pattern="^[A-Za-z ]+$"
+             #title="ngModel" required minlength="3" />
+      <div *ngIf="title.invalid && title.touched" class="error-msg">
+        <div *ngIf="title.errors?.['required']">Title is required.</div>
+        <div *ngIf="title.errors?.['minlength']">At least 3 characters.</div>
+        <div *ngIf="title.errors?.['pattern']">Only letters and spaces allowed.</div>
+      </div><br>
+
+      <!-- Assigned To -->
+      <label>Assigned To:</label>
+      <input type="text" name="assignedTo" [(ngModel)]="editTaskData.assignedTo" pattern="^[A-Za-z ]+$"
+             #assignedTo="ngModel" required />
+      <div *ngIf="assignedTo.invalid && assignedTo.touched" class="error-msg">
+        <div *ngIf="assignedTo.errors?.['required']">Assigned To is required.</div>
+        <div *ngIf="assignedTo.errors?.['pattern']">Only letters and spaces allowed.</div>
+      </div><br>
+
+      <!-- Status -->
+      <label>Status:</label>
+      <select name="status" [(ngModel)]="editTaskData.status" #status="ngModel" required>
+        <option value="" disabled>Select status</option>
+        <option value="Pending">Pending</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+      </select>
+      <div *ngIf="status.invalid && status.touched" class="error-msg">
+        Status is required.
+      </div><br>
+
+      <!-- Estimate -->
+      <label>Estimate (hours):</label>
+      <input type="number" name="estimate" [(ngModel)]="editTaskData.estimate"
+             #estimate="ngModel" required min="1" />
+      <div *ngIf="estimate.invalid && estimate.touched" class="error-msg">
+        <div *ngIf="estimate.errors?.['required']">Estimate is required.</div>
+        <div *ngIf="estimate.errors?.['min']">Minimum is 1 hour.</div>
+      </div><br>
+
+      <!-- Time Spent -->
+      <label>Time Spent (hours):</label>
+      <input type="number" name="timeSpent" [(ngModel)]="editTaskData.timeSpent"
+             #timeSpent="ngModel" required min="0" />
+      <div *ngIf="timeSpent.invalid && timeSpent.touched" class="error-msg">
+        <div *ngIf="timeSpent.errors?.['required']">Time Spent is required.</div>
+        <div *ngIf="timeSpent.errors?.['min']">Time can’t be negative, buddy.</div>
+      </div><br>
+
+      <!-- Buttons -->
+      <button type="submit" class="btn btn-success" [disabled]="editTaskForm.invalid">Save Changes</button>
+      <button type="button" (click)="cancelEditTask()" class="btn btn-secondary">Cancel</button>
+
+    </form>
+  </div>
+</div>

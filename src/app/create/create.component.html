@@ -1,7 +1,7 @@
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg ">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Create New Project</a>
+    <a class="navbar-brand" style="margin-left: 50px;" href="#">Create New Project</a>
    
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
@@ -18,32 +18,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<div class="create-page"> 
 <form #projectForm="ngForm" (ngSubmit)="saveProject($event)">
 
   <label>Title:</label>
@@ -80,3 +55,4 @@
 
   <button type="submit" [disabled]="projectForm.invalid">Save Project</button>
 </form>
+</div>
