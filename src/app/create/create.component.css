@@ -75,7 +75,7 @@ label {
 }
 
 input, textarea {
-  width: 100%;
+  width: 95%;
   padding: 8px;
   margin-top: 5px;
   border: 1px solid #ccc;
@@ -154,3 +154,36 @@ body.dark-mode .create-page label {
 body.dark-mode .create-page button {
   background-color: #0056b3;
 }
+
+
+
+
+
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.active-btn {
+  background-color: #4CAF50; /* Bold green */
+  color: white;
+}
+
+.disabled-btn {
+  background-color: #ccc; /* Soft grey */
+  color: #666;
+  cursor: not-allowed;
+}
+
+
+
+
+button.active-btn:hover {
+  background-color: #45a049;
+}
+

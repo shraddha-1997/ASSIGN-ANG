@@ -289,7 +289,15 @@ o	Due Date -->
         <div *ngIf="timeSpent.errors?.['min']">Can't be negative, friend.</div>
       </div><br />
 
-      <button type="submit" [disabled]="taskForm.invalid">Create Task</button>
+
+      <button 
+  type="submit" 
+  [disabled]="taskForm.invalid"
+  [ngClass]="{ 'disabled-btn': taskForm.invalid, 'active-btn': taskForm.valid }">
+  Create Task
+</button>
+
+      <!-- <button type="submit" [disabled]="taskForm.invalid">Create Task</button> -->
       <button type="button" (click)="cancelTask()">Cancel</button>
     </form>
 

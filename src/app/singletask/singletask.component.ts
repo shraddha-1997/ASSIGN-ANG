@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { NgZone } from '@angular/core';
 
 @Component({
   selector: 'app-singletask',
@@ -28,7 +29,13 @@ export class SingletaskComponent implements OnInit {
   showDeletedPopup = false;
   showUpdatedPopup = false;
 
-  constructor(private route: ActivatedRoute) {}
+
+  
+  constructor(
+    private route: ActivatedRoute,
+    private ngZone: NgZone
+  ) {}
+  
 
   ngOnInit(): void {
     this.projectTitle = this.route.snapshot.paramMap.get('title') || '';
@@ -63,14 +70,14 @@ export class SingletaskComponent implements OnInit {
   // }
 
 
-
   updateTask() {
     if (this.editingTaskIndex !== null) {
       this.tasks[this.editingTaskIndex] = { ...this.editTaskData };
       this.saveTasksToLocalStorage();
-      this.cancelEditTask(); // Close the modal
+      this.cancelEditTask(); 
   
-      // Show the "Updated Successfully" popup
+      this.loadTasks();
+  
       this.showUpdatedPopup = true;
   
       // Hide the success popup after 3 seconds
@@ -90,7 +97,7 @@ export class SingletaskComponent implements OnInit {
     this.editingTaskIndex = null;
   }
 
-  // Show the delete confirmation popup
+
   // Show the delete confirmation popup
 deleteTask(index: number) {
   this.deleteIndex = index;
@@ -104,23 +111,23 @@ deleteTask(index: number) {
     this.showDeleteConfirm = false;
   }
 
-  // Confirm the deletion
-// Confirm the deletion
+
+
+
 confirmDelete() {
   if (this.deleteIndex !== null) {
-    // Delete the task from the tasks array
+ 
     this.tasks.splice(this.deleteIndex, 1);
 
-    // Save the updated tasks to localStorage
     this.saveTasksToLocalStorage();
 
-    // Close the delete confirmation popup
+ 
     this.showDeleteConfirm = false;
 
-    // Show the deleted success popup
+    
     this.showDeletedPopup = true;
 
-    // Hide the success popup after 3 seconds
+   
     setTimeout(() => {
       this.showDeletedPopup = false;
     }, 3000);

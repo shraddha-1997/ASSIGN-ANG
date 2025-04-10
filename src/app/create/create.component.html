@@ -18,11 +18,11 @@
 
 
 
-<div class="create-page"> 
+<div class="create-page" > 
 <form #projectForm="ngForm" (ngSubmit)="saveProject($event)">
 
   <label>Title:</label>
-  <input type="text" name="title" [(ngModel)]="project.title" required minlength="3" #title="ngModel" />
+  <input  type="text" name="title" [(ngModel)]="project.title" required minlength="3" #title="ngModel" />
   <div *ngIf="title.invalid && title.touched" class="error-msg">Title is required (min 3 characters).</div>
 
   <label>Description:</label>
@@ -53,6 +53,15 @@
   <input type="date" name="dueDate" [(ngModel)]="project.dueDate" required #dueDate="ngModel" />
   <div *ngIf="dueDate.invalid && dueDate.touched" class="error-msg">This one's required.</div>
 
-  <button type="submit" [disabled]="projectForm.invalid">Save Project</button>
+
+
+  <button 
+  type="submit" 
+  [disabled]="projectForm.invalid"
+  [ngClass]="{'disabled-btn': projectForm.invalid, 'active-btn': !projectForm.invalid}">
+  Save Project
+</button>
+
+  <!-- <button type="submit" [disabled]="projectForm.invalid">Save Project</button> -->
 </form>
 </div>
